@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<!-- $Id$ -->
+
+<!DOCTYPE DOCKABLES SYSTEM "dockables.dtd">
+
+<DOCKABLES>
+  <DOCKABLE NAME="jswatplugin">
+    com.bluemarsh.jswat.plugins.jedit.JSwatPlugin.getInstance().getDock(view);
+  </DOCKABLE>
+</DOCKABLES>
