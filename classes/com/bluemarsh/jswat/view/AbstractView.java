@@ -44,6 +44,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -97,10 +98,11 @@ abstract class AbstractView implements View {
      *
      * @param  str         string to look for.
      * @param  ignoreCase  true to ignore case.
+     * @param  backward    true to search backward.
      * @return  true if string was found somewhere, false if string
      *          does not exist in this view.
      */
-    public boolean findString(String str, boolean ignoreCase) {
+    public boolean findString(String str,boolean ignoreCase,boolean backward) {
         // Prepare for the search.
         CharArraySequence seq = new CharArraySequence(viewContent);
         Pattern patt = null;
@@ -115,6 +117,12 @@ abstract class AbstractView implements View {
         if (logger.isLoggable(Level.INFO)) {
             logger.info("searching for '" + str + "' in " + viewTitle);
         }
+        if (backward)
+           return findStringBackward (str, matcher);
+        else
+           return findStringForward (str, matcher);
+    }
+    private boolean findStringForward (String str, Matcher matcher) {
         if (matcher.find(textComponent.getSelectionEnd())) {
             foundString(matcher.start(), matcher.end());
         } else {
@@ -137,6 +145,36 @@ abstract class AbstractView implements View {
         }
         return true;
     } // findString
+    private boolean findStringBackward (String str, Matcher matcher) {
+        ArrayList allMatches = new ArrayList();
+        final int here = textComponent.getSelectionEnd();
+        int start = 0;
+        while (matcher.find(start)) {
+           allMatches.add (new int[] { matcher.start(), matcher.end() });
+           start =  matcher.end();
+        }
+        int found[] = null;
+        for (int i = 0; i < allMatches.size(); i++) {
+           final int pos[] = (int[]) allMatches.get(i);
+           if (pos[1] < here) {
+              found = pos;
+           } else
+              break;
+        }
+        if (found == null && !allMatches.isEmpty()) {
+           found = (int[]) allMatches.get(allMatches.size() - 1);
+        }
+        if (found != null) {
+           foundString(found[0], found[1]);
+           return true;
+        } else {
+           // String was not found anywhere.
+           if (logger.isLoggable(Level.INFO)) {
+              logger.info("'" + str + "' not found in " + viewTitle);
+           }
+           return false;
+        }
+    } // findStringBackward
 
     /**
      * Show that we found the string we were looking for.

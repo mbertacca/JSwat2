@@ -52,10 +52,11 @@ public interface View {
      *
      * @param  query       string to look for.
      * @param  ignoreCase  true to ignore case.
+     * @param  backward    true to search backward.
      * @return  true if string was found somewhere, false if string
      *          does not exist in this view.
      */
-    boolean findString(String query, boolean ignoreCase);
+    boolean findString(String query, boolean ignoreCase, boolean backward);
 
     /**
      * Returns the long version of title of this view. This may be a

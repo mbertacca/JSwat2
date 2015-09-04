@@ -35,7 +35,7 @@ import java.util.prefs.Preferences;
  * Implements the find backward action used to search for text within
  * a source view.
  *
- * @author  Marco Bertacca
+ * @author  mbertacca
  */
 public class FindAgainBackAction extends FindAgainAction {
     /**

@@ -152,11 +152,12 @@ public class ConsoleAdapter extends AbstractAdapter {
      *
      * @param  query       string to look for.
      * @param  ignoreCase  true to ignore case.
+     * @param  backward    true to search backward.
      * @return  true if string was found.
      * @throws  NoOpenViewException
      *          if there is not source view opened.
      */
-    public boolean findString(String query, boolean ignoreCase)
+    public boolean findString(String query,boolean ignoreCase,boolean backward)
         throws NoOpenViewException {
         // It is quite unlikely that this method will be called in the
         // console mode, but throw this anyway.

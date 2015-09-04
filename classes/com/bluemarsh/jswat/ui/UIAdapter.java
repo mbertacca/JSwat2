@@ -127,11 +127,12 @@ public interface UIAdapter {
      *
      * @param  query       string to look for.
      * @param  ignoreCase  true to ignore case.
+     * @param  backward    true to search backward.
      * @return  true if string was found.
      * @throws  NoOpenViewException
      *          if there is no view to be searched.
      */
-    boolean findString(String query, boolean ignoreCase)
+    boolean findString(String query, boolean ignoreCase, boolean backward)
         throws NoOpenViewException;
 
     /**

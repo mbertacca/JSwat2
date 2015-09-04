@@ -87,10 +87,11 @@ class ByteCodeView implements View {
      *
      * @param  query       string to look for.
      * @param  ignoreCase  true to ignore case.
+     * @param  backward    true to search backward.
      * @return  true if string was found somewhere, false if string
      *          does not exist in this view.
      */
-    public boolean findString(String query, boolean ignoreCase) {
+    public boolean findString(String query,boolean ignoreCase,boolean backward){
         // Someday this will do something.
         return false;
     } // findString

@@ -123,7 +123,7 @@ public class FindAction extends JSwatAction {
                 // Ask the source view to find the first occurrence of
                 // the string.
                 try {
-                    if (!adapter.findString(query, ignoreCase)) {
+                    if (!adapter.findString(query, ignoreCase, false)) {
                         // String was not found anywhere in the view.
                         displayError(frame,
                                      Bundle.getString("Find.stringNotFound"));

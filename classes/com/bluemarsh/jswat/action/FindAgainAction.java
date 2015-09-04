@@ -41,11 +41,18 @@ public class FindAgainAction extends FindAction {
     private static final long serialVersionUID = 1L;
 
     /**
+     * Creates a new FindAgainAction object with the passed action
+     * command string.
+     */
+    protected FindAgainAction(String id) {
+        super(id);
+    } // FindAgainAction
+    /**
      * Creates a new FindAgainAction object with the default action
      * command string of "findAgain".
      */
     public FindAgainAction() {
-        super("findAgain");
+        this("findAgain");
     } // FindAgainAction
 
     /**
@@ -79,7 +86,7 @@ public class FindAgainAction extends FindAction {
 
         try {
             // Ask the source view to find the next occurrence of the string.
-            if (!adapter.findString(query, ignoreCase)) {
+            if (!findString(adapter, query, ignoreCase)) {
                 // String was not found anywhere in the view.
                 displayError(frame, Bundle.getString("Find.stringNotFound"));
                 return;
@@ -88,4 +95,9 @@ public class FindAgainAction extends FindAction {
             displayError(frame, Bundle.getString("Find.noViewSelected"));
         }
     } // actionPerformed
+    boolean findString (UIAdapter adapter, String query, boolean ignoreCase)
+                                                throws NoOpenViewException {
+         return adapter.findString(query, ignoreCase, false);
+    }
+
 } // FindAgainAction
