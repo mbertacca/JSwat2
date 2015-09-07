@@ -112,11 +112,12 @@ public class DummyUIAdapter extends AbstractAdapter {
      *
      * @param  query       string to look for.
      * @param  ignoreCase  true to ignore case.
+     * @param  backward    true to search backward.
      * @return  true if string was found.
      * @throws  NoOpenViewException
      *          if there is no view to be searched.
      */
-    public boolean findString(String query, boolean ignoreCase)
+    public boolean findString(String query,boolean ignoreCase,boolean backward)
         throws NoOpenViewException {
         throw new NoOpenViewException("unsupported operation");
     } // findString
