@@ -359,8 +359,11 @@ public class LocalsPanel extends AbstractPanel
         for (int i = 0; i < args.size(); i++) {
            final Value value = (Value) args.get (i);
            final String name = "@arg_" + i;
-           allVars.put(name,
+           if (value != null)
+              allVars.put(name,
                        Variable.create(name, value.type().name(), value));
+           else
+              allVars.put(name, new PrimitiveVariable (name, "null", null));
         }
 
         boolean hideThis = preferences.getBoolean(

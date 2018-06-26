@@ -1,0 +1,2 @@
+HERE=`pwd`
+export CLASSPATH=.:$JAVA_HOME/lib/tools.jar:$HERE/ext/jclasslib.jar:$HERE/ext/parser.jar:$CLASSPATH
