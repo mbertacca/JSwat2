@@ -1,0 +1,22 @@
+DIRNAME=`dirname $0`
+JSWAT_HOME=`dirname $DIRNAME`
+
+LOCALCLASSPATH=$JSWAT_HOME/classes
+
+for i in $JSWAT_HOME/classes/ext/*.jar
+do
+   LOCALCLASSPATH="$LOCALCLASSPATH:$i"
+done
+
+if [ -n "$JAVA_HOME" ]
+then
+   LOCALCLASSPATH="$LOCALCLASSPATH:$JAVA_HOME/lib/tools.jar"
+   # Mac OS X does not have a tools.jar, but the JPDA classes are in
+   # the core classes archive.
+else
+   echo "Warning: JAVA_HOME environment variable is not set; JSwat may fail"
+   echo "  to find the JPDA classes, in which case you should set JAVA_HOME"
+   echo "  to the installation directory of the JDK."
+fi
+
+java -classpath "$LOCALCLASSPATH" com.bluemarsh.jswat.Main "$@"

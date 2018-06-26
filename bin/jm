@@ -1,0 +1,44 @@
+JAVA_HOME=${JAVA_HOME:-/usr/local/jdk}
+JAVAC=$JAVA_HOME/bin/javac
+JAVAC6=/usr/local/jdk6/bin/javac
+JAVAC7=/usr/local/jdk7/bin/javac
+JAVAC8=/usr/local/jdk8/bin/javac
+if [ -f ENV ]
+then
+   . ENV
+fi
+
+W='*'
+CLEAN=0
+
+while [ $# -gt 0 ]
+do
+   case $1 in
+   "clean")
+      CLEAN=1
+      shift
+      ;;
+   *)
+      W=$1/
+      shift
+      ;;
+   esac
+done
+
+find $W -follow -print | while read FILE
+do
+   if [ -d ${FILE} ]
+   then
+      LIST=`echo ${FILE}/*.java`
+      if [ "$LIST" != "${FILE}/*.java" ]
+      then
+         rm  -rf ${FILE}/*.class
+         if [ $CLEAN != 1 ]
+         then
+            echo "Compiling ${FILE}"
+            $JAVAC -g $LIST
+         fi
+      fi
+   fi
+done
+
