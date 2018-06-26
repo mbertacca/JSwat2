@@ -355,6 +355,14 @@ public class LocalsPanel extends AbstractPanel
         ReferenceType clazz = frame.location().declaringType();
         ListIterator iter = clazz.visibleFields().listIterator();
 
+        List args = frame.getArgumentValues();
+        for (int i = 0; i < args.size(); i++) {
+           final Value value = (Value) args.get (i);
+           final String name = "@arg_" + i;
+           allVars.put(name,
+                       Variable.create(name, value.type().name(), value));
+        }
+
         boolean hideThis = preferences.getBoolean(
             "locals.hideThis", Defaults.LOCALS_HIDE_THIS);
         boolean showFinals = preferences.getBoolean(
