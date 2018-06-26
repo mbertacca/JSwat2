@@ -85,39 +85,19 @@ public class FindAction extends JSwatAction {
         boolean ignoreCase = prefs.getBoolean("searchIgnoreCase", false);
 
         // Else, show a dialog asking for the string to find.
-        Object[] messages = {
+
+        Object[] message = {
             Bundle.getString("Find.searchStringField"),
-            new JTextField(query, 25),
             new JCheckBox(Bundle.getString("Find.ignoreCase"), ignoreCase)
         };
-
-        // It seems that calling JOptionPane.showOptionDialog() will cause
-        // focus to be on the OK button. However, if the pane and dialog
-        // are created separately, focus will be on the text box...
-        JOptionPane pane = new JOptionPane(
-            messages, JOptionPane.QUESTION_MESSAGE,
-            JOptionPane.OK_CANCEL_OPTION, null, null, null);
-        JDialog dialog = pane.createDialog(
-            frame, Bundle.getString("Find.title"));
-        ((JTextField) messages[1]).selectAll();
-        dialog.setVisible(true);
-
-        int response = JOptionPane.CLOSED_OPTION;
-        Object selectedValue = pane.getValue();
-        if (selectedValue == null) {
-            response = JOptionPane.CLOSED_OPTION;
-        } else {
-            if (selectedValue instanceof Integer) {
-                response = ((Integer) selectedValue).intValue();
-            } else {
-                response = JOptionPane.CLOSED_OPTION;
-            }
-        }
-
+        Object response = JOptionPane.showInputDialog(frame, message,
+                                              Bundle.getString("Find.title"),
+                                              JOptionPane.QUESTION_MESSAGE,
+                                              null, null, query);
         // If okay, validate the input.
-        if (response == JOptionPane.OK_OPTION) {
-            query = ((JTextField) messages[1]).getText();
-            ignoreCase = ((JCheckBox) messages[2]).isSelected();
+        if (response != null) {
+            query = response.toString();
+            ignoreCase = ((JCheckBox) message[1]).isSelected();
             if (query.length() > 0) {
 
                 // Ask the source view to find the first occurrence of
