@@ -78,7 +78,7 @@ class AssignOperatorNode extends BinaryOperatorNode {
             // Compare the argument types for similarity.
             VirtualMachine vm = context.getLocation().virtualMachine();
             Type rChildType = Types.signatureToType(rChildSig, vm);
-            if (rChildSig.equals(lChildSig)
+            if ((rChildSig==null?lChildSig==null:rChildSig.equals(lChildSig))
                 || (rChildType instanceof ReferenceType
                     && Types.isCompatible(lChildSig, (ReferenceType) rChildType))
                 || (Types.canWiden(lChildSig, rChildType))) {
@@ -154,7 +154,7 @@ class AssignOperatorNode extends BinaryOperatorNode {
                         vcon.getClass()));
             }
         } catch (Exception e) {
-            throw new EvaluationException(Bundle.getString(
+            throw new RuntimeException(Bundle.getString(
                     "error.assign.exception", e));
         }
         return mirror;

@@ -204,7 +204,7 @@ class EvaluateDialog extends JDialog implements ActionListener {
                 }
             } catch (EvaluationException ee) {
                 s = Bundle.getString("Evaluate.error") + ' '
-                    + Strings.exceptionToString(ee);
+                    + ee.getMessage();
             } catch (Exception e) {
                 s = Bundle.getString("Evaluate.error") + ' '
                     + Strings.exceptionToString(e);

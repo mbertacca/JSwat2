@@ -130,6 +130,8 @@ public class Types {
      * @return  true if type can be widened to desired type, false otherwise.
      */
     public static boolean canWiden(String desiredType, Type actualType) {
+        if (desiredType == null)
+           return false;
         char dc = desiredType.charAt(0);
         Integer desiredSize = (Integer) SIZES_OF.get(new Character(dc));
         Integer actualSize = null;
