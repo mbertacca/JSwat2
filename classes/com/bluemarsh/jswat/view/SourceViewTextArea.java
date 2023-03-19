@@ -47,6 +47,7 @@ import javax.swing.KeyStroke;
 import javax.swing.Scrollable;
 import javax.swing.SwingConstants;
 import javax.swing.ToolTipManager;
+import javax.swing.UIManager;
 import javax.swing.text.BadLocationException;
 
 /**
@@ -65,7 +66,7 @@ public class SourceViewTextArea extends JComponent implements ActionListener, Sc
     /** silence the compiler warnings */
     private static final long serialVersionUID = 1L;
     /** Color for the gutter background. */
-    private static Color gutterColor = Color.lightGray;
+    private static Color gutterColor = UIManager.getColor ("control");
     /** Content that contains the text. */
     private SourceContent content;
     /** Draw layer for drawing the current text selection. */
@@ -97,7 +98,7 @@ public class SourceViewTextArea extends JComponent implements ActionListener, Sc
         MouseSelector selector = new MouseSelector();
         addMouseListener(selector);
         addMouseMotionListener(selector);
-        setBackground(Color.white);
+        setBackground(UIManager.getColor ("TextArea.background"));
         // This is only half of it; we still need to do the work in the
         // mouseDragged() method.
         setAutoscrolls(true);
